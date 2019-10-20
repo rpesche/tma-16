@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    docker:
+    - image: rust:latest
+
+    steps:
+      - checkout
+
+      - run:
+          name: install dependencies
+          command: |
+              cd tma-16-rs/
+              cargo build
+              apt update
+              apt install python-pytest
+
+      - run:
+          name: run tests
+          command: |
+            pytest tma_16_assembler.py
